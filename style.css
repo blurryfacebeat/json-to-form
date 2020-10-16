@@ -46,6 +46,13 @@ h2 {
     font-size: 3.2rem;
 }
 
+label {
+    display: block;
+    margin-bottom: 2.5rem;
+
+    font-size: 1.6rem;
+}
+
 .send-json__wrapper {
     max-width: 140rem;
     width: 95%;
