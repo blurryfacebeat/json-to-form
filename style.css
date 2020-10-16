@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Piazzolla:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html, body {
+    font-family: 'Piazzolla', serif;
+    color: #373940;
+    font-size: 62.5%;
+
+    background-color: #d7d2cc;
+
+    @media screen and (max-width: 767px) {
+        font-size: calc(10px + 13 * (100vw - 320px) / 447);
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+        font-size: calc(10px + 4 * (100vw - 768px) / 255);
+    }
+
+    @media (min-width: 1024px) and (max-width: 1360px) {
+        font-size: calc(8px + 2 * (100vw - 1024px) / 336);
+    }
+}
+
+h1 {
+    margin: 0 auto;
+
+    text-align: center;
+    font-weight: 700;
+    font-size: 6.4rem;
+}
+
+h2 {
+    margin: 0 auto;
+
+    text-align: center;
+    font-weight: 500;
+    font-size: 3.2rem;
+}
+
+.send-json__wrapper {
+    max-width: 140rem;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 4rem;
+
+    text-align: center;
+}
+
+.send-json__wrapper label {
+    display: block;
+    margin-bottom: 2.5rem;
+
+    font-size: 1.6rem;
+}
+
+.send-json__wrapper input {
+    margin-bottom: 2.5rem;
+
+    font-size: 1.6rem;
+    font-family: inherit;
+}
+
+.send-json__wrapper button {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    font-size: 1.6rem;
+    font-family: inherit;
+
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
