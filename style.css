@@ -16,16 +16,22 @@ html, body {
     font-size: 62.5%;
 
     background-color: #d7d2cc;
+}
 
-    @media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
+    html, body {
         font-size: calc(10px + 13 * (100vw - 320px) / 447);
     }
+}
 
-    @media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    html, body {
         font-size: calc(10px + 4 * (100vw - 768px) / 255);
     }
+}
 
-    @media (min-width: 1024px) and (max-width: 1360px) {
+@media (min-width: 1024px) and (max-width: 1360px) {
+    html, body {
         font-size: calc(8px + 2 * (100vw - 1024px) / 336);
     }
 }
@@ -76,7 +82,7 @@ label {
     font-family: inherit;
 }
 
-button {
+.send-json__wrapper button {
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -114,4 +120,38 @@ button {
 
 .form-control::placeholder {
     font-family: 'Piazzolla', serif;
-}   
+}
+
+.form__button {
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-right: 2rem;
+
+    font-size: 1.6rem;
+    font-family: inherit;
+
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.form__button:last-child {
+    margin-right: 0;
+}
+
+.form-group span {
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-size: 1.6rem;
+}
+
+.form-group a {
+    font-size: 1.6rem;
+    text-decoration: none;
+}
