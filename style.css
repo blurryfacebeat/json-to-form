@@ -48,7 +48,6 @@ h2 {
 
 label {
     display: block;
-    margin-bottom: 2.5rem;
 
     font-size: 1.6rem;
 }
@@ -58,6 +57,7 @@ label {
     width: 95%;
     margin: 0 auto;
     margin-top: 4rem;
+    margin-bottom: 5rem;
 
     text-align: center;
 }
@@ -76,7 +76,7 @@ label {
     font-family: inherit;
 }
 
-.send-json__wrapper button {
+button {
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -92,3 +92,26 @@ label {
     cursor: pointer;
     outline: none;
 }
+
+#app {
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.form-control {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    font-family: inherit;
+
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+}
+
+.form-control::placeholder {
+    font-family: 'Piazzolla', serif;
+}   

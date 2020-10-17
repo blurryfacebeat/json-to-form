@@ -1,56 +1,167 @@
-const jsonInput = '{"type":"text", "label":"Name", "placeholder": "text field"}';
+// JSON на входе
+const jsonInput2 = `
+{
+    "name":"addpost",
+    "fields":[
+    {
+        "label":"Title",
+        "input": {
+            "type":"text",
+            "required": true,
+            "placeholder": "Эщкере, ребят"
+        }
+    },
+    {
+        "label":"Description",
+        "input": {
+            "type":"textarea",
+            "required":true
+        }
+    },
+    {
+        "label":"Image",
+        "input": {
+            "type":"file",
+            "required": true
+        }
+    },
+    {
+        "label":"Publish Date",
+        "input": {
+            "type": "date",
+            "required": true
+        }
+    },
+    {
+        "label": "Author",
+        "input": {
+            "type": "text"
+        }
+    }
+],
+"references":[
+    {
+      "input":{
+        "type":"checkbox",
+        "required":true,
+        "checked":"false"
+      }
+    },
+    {
+        "text without ref":"View Author Post",
+        "text":"View Author Post",
+        "ref":"viewauthor"
+    }
+  ],
+    "buttons":[
+    {
+        "text":"Create Post"
+    }
+]
+}
+`
+// Контейнер для формы
 const $app = document.getElementById('app');
 
+const temp2 = JSON.parse(jsonInput2);
+
+console.log(temp2);
+
+// Компоненты
 const components = {
-    text: {
+    field: {
         containerOpen: '<div class="form-group">',
         labelOpen: '<label class="form-label">',
         labelClose: '</label>',
-        open: '<input type="text" class="form-control"',
+        open: '<input class="form-control"',
+        inputTypeOpen: ' type="',
+        inputTypeClose: '"',
         placeholderOpen: ' placeholder="',
         placeholderClose: '"',
+        required: ' required',
         close: '>',
         containerClose: '</div>'
+    },
+    reference: {
+        containerOpen: '<div class="form-group">',
+        labelOpen: '<label class="form-label">',
+        labelClose: '</label>',
+        open: '<input type="checkbox" class="form-control"',
+        required: ' required',
+        checked: ' checked',
+        close: '>',
+        containerClose: '</div>'
+    },
+    button: {
+        open: '<button>',
+        close: '</button>'
     }
 };
 
-function buildTextField(field) {
-    let textField = components.text.containerOpen;
+function buildField(field) {
+    let newField = components.field.containerOpen;
 
     if (field.label) {
-        textField += components.text.labelOpen + field.label + components.text.labelClose;
+        newField += components.field.labelOpen + field.label + components.field.labelClose;
     }
 
-    textField += components.text.open;
+    newField += components.field.open + components.field.inputTypeOpen + field.input.type + components.field.inputTypeClose;
 
-    if (field.placeholder) {
-        textField += components.text.placeholderOpen + field.placeholder + components.text.placeholderClose;
+    if (field.input.placeholder) {
+        newField += components.field.placeholderOpen + field.input.placeholder + components.field.placeholderClose;
     }
 
-    textField += components.text.close;
-    textField += components.text.containerClose;
-    return textField;
+    if (field.input.required === true) {
+        newField += components.field.required;
+    }
+
+    newField += components.field.close;
+    newField += components.field.containerClose;
+    return newField;
 }
 
-const temp = JSON.parse(jsonInput);
-// console.log(buildTextField(temp));
-$app.insertAdjacentHTML('afterend', buildTextField(temp));
+function buildReference(field) {
 
+}
+
+function buildButton(field) {
+    let button = components.button.open;
+    button += field.text;
+    button += components.button.close;
+    return button;
+}
+
+// Функция создания формы
 function buildJSONForm(json) {
     let form = '<form>';
 
     let formFields = Object.getOwnPropertyNames(json);
 
-    for (let i = 0; i < formFields.length; i++) {
-        let currentField = json[formFields[i]];
+    form += `<h1 class="form__header">${json[formFields[0]]}</h1>`;
 
-        switch (currentField.type) {
-            case 'text':
-                form += buildTextField(currentField);
-                break;
-            default:
-                console.log('Ошибка');
-                break;
+    for (let i = 0; i < formFields.length; i++) {
+        let currentKey = json[formFields[i]];
+        let fieldName = formFields[i];
+
+        if (fieldName === 'fields') {
+            for (let i = 0; i < currentKey.length; i++) {
+                // console.log(buildField(currentField[i]));
+                form += buildField(currentKey[i]);
+            }
+        }
+
+        if (fieldName === 'references') {
+            for (let i = 0; i < currentKey.length; i++) {
+                console.log(111);
+                // console.log(currentField[i]);
+                // form += buildField(currentField[i]);
+            }
+        }
+
+        if (fieldName === 'buttons') {
+            for (let i = 0; i < currentKey.length; i++) {
+                form += buildButton(currentKey[i]);
+            }
         }
     }
 
@@ -58,12 +169,16 @@ function buildJSONForm(json) {
     return form;
 }
 
-function drawForm(jsonInput, destinationId) {
-    try {
-        const input = JSON.parse(jsonInput);
-    } catch (e) {
-        console.log('Ошибка: ' + e);
-    }
+// Отрисовка формы
+function drawForm(jsonInput, destination) {
+    // Парсим падающий json
+    const input = JSON.parse(jsonInput);
 
+    // Собираем форму соответствующей функцией
     const resultForm = buildJSONForm(input);
+
+    // Отрисовываем форму в нужном месте
+    destination.insertAdjacentHTML('beforeend', resultForm);
 }
+
+drawForm(jsonInput2, $app);
