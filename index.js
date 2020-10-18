@@ -1,130 +1,52 @@
-// JSON на входе
-const jsonInput2 = `
-{
-    "name":"interview",
-    "fields":[
-        {
-            "label":"Введите своё ФИО",
-            "input":{
-                "type":"text",
-                "required":true,
-                "placeholder":"Иванов Иван Иванович"
-            }
+// Форма
+const $send_wrapper = document.querySelector('.send-json__wrapper');
+const send_template = {
+    field: {
+        label: {
+            for: 'sendjson',
+            text: 'Выберите JSON-файл для загрузки'
         },
-        {
-          "label":"Введите Номер телефона",
-          "input":{
-              "type":"number",
-              "required":true,
-              "mask": "+7 (999) 99-99-999"
-          }
-        },
-        {
-          "label":"Введите свою Почту",
-          "input":{
-              "type":"email",
-              "required":true,
-              "placeholder":"example@mail.com"
-          }
-        },
-        {
-            "label":"Введите свой возраст",
-            "input":{
-                "type":"number",
-                "required":true
-            }
-        },
-        {
-            "label":"Введите вашу специальность",
-            "input":{
-                "type":"text",
-                "required":true
-            }
-        },
-        {
-            "label":"Выберете технологии, с которыми вы работали",
-            "input":{
-                "type":"technology",
-                "required": true,
-                "technologies": ["PHP", "JS", "Laravel", "Express.js", "Yii2", "HTML", "CSS", "Java"],
-                "multiple": true
-            }
-        },
-        {
-            "label":"Ваш срок работы",
-            "input":{
-                "type":"number",
-                "required": true
-            }
-        },
-        {
-            "label":"Ваша фотография",
-            "input":{
-                "type":"file",
-                "required":true
-            }
-        },
-        {
-            "label":"Серия, номер",
-            "input":{
-                "type": "number",
-                "required": true,
-                "mask": "99-99 999999"
-            }
-        },
-        {
-            "label":"Код подразделения",
-            "input":{
-                "type": "number",
-                "required": true,
-                "mask": "999-999"
-            }
-        },
-        {
-            "label":"Скан / Фото паспорта (1 страница)",
-            "input":{
-                "type": "file",
-                "required": true,
-                "multiple": true,
-                "filetype": ["png", "jpeg", "pdf"]
-            }
-        },
-        {
-            "label":"Расскажите немного о себе",
-            "input":{
-                "type":"textarea",
-                "required:":true
-            }
+
+        input: {
+            type: 'file',
+            name: 'sendjson',
+            id: 'sendjson',
+            accept: '.json'
         }
-    ],
-    "references":[
-        {
-          "input":{
-            "type":"checkbox",
-            "required":true,
-            "checked":false
-          }
-        },
-        {
-            "text without ref":"I accept the",
-            "text":"Terms & Conditions",
-            "ref":"termsandconditions"
-        }
-    ],
-    "buttons":[
-        {
-            "text":"Send"
-        },
-        {
-            "text":"Cancel"
-        }
-    ]
-}
-`
+    }
+};
+
 // Контейнер для формы
 const $app = document.getElementById('app');
 
-const temp2 = JSON.parse(jsonInput2);
+// Кнопка очистки формы
+const $clear = document.getElementById('clear__button');
+
+$clear.addEventListener('click', e => {
+    e.preventDefault();
+
+    formClear($app, $send_wrapper, send_template);
+});
+
+// Достаем JSON из файла
+const sendjson = document.getElementById('sendjson');
+
+sendjson.addEventListener('change', function (e) {
+    try {
+        const upload = e.target.files[0];
+        const reader = new FileReader();
+        reader.addEventListener('load', (function (file) {
+            return function (e) {
+                json = JSON.parse(e.target.result);
+                $send_wrapper.innerHTML = '';
+                drawForm(json, $app);
+            }
+        })(sendjson));
+        reader.readAsText(upload);
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 // Компоненты
 const components = {
@@ -294,14 +216,15 @@ function buildJSONForm(json) {
 
 // Отрисовка формы
 function drawForm(jsonInput, destination) {
-    // Парсим падающий json
-    const input = JSON.parse(jsonInput);
-
     // Собираем форму соответствующей функцией
-    const resultForm = buildJSONForm(input);
+    const resultForm = buildJSONForm(jsonInput);
 
     // Отрисовываем форму в нужном месте
     destination.insertAdjacentHTML('beforeend', resultForm);
 }
 
-drawForm(jsonInput2, $app);
+// Очистка формы
+function formClear(destination, destination2, template) {
+    destination.innerHTML = '';
+    destination2.innerHTML = template;
+}
