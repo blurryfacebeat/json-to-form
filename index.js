@@ -13,6 +13,7 @@ $clear.style.display = 'none';
 
 $clear.addEventListener('click', e => {
     e.preventDefault();
+    $clear.style.display = 'none';
 
     formClear($app, $send_wrapper, sendjson);
 });
