@@ -1,36 +1,23 @@
 // Форма
 const $send_wrapper = document.querySelector('.send-json__wrapper');
-const send_template = {
-    field: {
-        label: {
-            for: 'sendjson',
-            text: 'Выберите JSON-файл для загрузки'
-        },
-
-        input: {
-            type: 'file',
-            name: 'sendjson',
-            id: 'sendjson',
-            accept: '.json'
-        }
-    }
-};
 
 // Контейнер для формы
 const $app = document.getElementById('app');
 
+// Поле отправки JSON-файла
+const sendjson = document.getElementById('sendjson');
+
 // Кнопка очистки формы
 const $clear = document.getElementById('clear__button');
+$clear.style.display = 'none';
 
 $clear.addEventListener('click', e => {
     e.preventDefault();
 
-    formClear($app, $send_wrapper, send_template);
+    formClear($app, $send_wrapper, sendjson);
 });
 
 // Достаем JSON из файла
-const sendjson = document.getElementById('sendjson');
-
 sendjson.addEventListener('change', function (e) {
     try {
         const upload = e.target.files[0];
@@ -38,7 +25,8 @@ sendjson.addEventListener('change', function (e) {
         reader.addEventListener('load', (function (file) {
             return function (e) {
                 json = JSON.parse(e.target.result);
-                $send_wrapper.innerHTML = '';
+                $send_wrapper.style.display = 'none';
+                $clear.style.display = 'block';
                 drawForm(json, $app);
             }
         })(sendjson));
@@ -224,7 +212,8 @@ function drawForm(jsonInput, destination) {
 }
 
 // Очистка формы
-function formClear(destination, destination2, template) {
+function formClear(destination, destination2, sendfield) {
     destination.innerHTML = '';
-    destination2.innerHTML = template;
+    destination2.style.display = 'block';
+    sendfield.value = '';
 }
