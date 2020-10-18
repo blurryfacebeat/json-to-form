@@ -1,3 +1,5 @@
+// осталось сделать МАСКИ и стили
+
 // Форма
 const $send_wrapper = document.querySelector('.send-json__wrapper');
 
@@ -46,7 +48,12 @@ const components = {
         open: '<input class="form-control"',
         inputTypeOpen: ' type="',
         inputTypeClose: '"',
-        typeTechnology: 'select',
+        typeTechnologyOpen: '<select',
+        typeTechnologyPreClose: '>',
+        typeTechnologyClose: '</select>',
+        optionOpen: '<option value="',
+        optionPreClose: '">',
+        optionClose: '</option>',
         placeholderOpen: ' placeholder="',
         placeholderClose: '"',
         required: ' required',
@@ -75,7 +82,7 @@ const components = {
         close: '</button>'
     }
 };
-// Создать элементы options
+
 function buildField(field) {
     let newField = components.field.containerOpen;
 
@@ -84,7 +91,7 @@ function buildField(field) {
     }
 
     if (field.input.type === 'technology') { 
-        newField += components.field.open + components.field.inputTypeOpen + components.field.typeTechnology + components.field.inputTypeClose;
+        newField += components.field.typeTechnologyOpen;
 
         if (field.input.required === true) {
             newField += components.field.required;
@@ -94,7 +101,14 @@ function buildField(field) {
             newField += components.field.multiple;
         }
 
-        newField += components.field.close;
+        let options = '';
+        for (let i = 0; i < field.input.technologies.length; i++) {
+            options += components.field.optionOpen + field.input.technologies[i] + components.field.optionPreClose + field.input.technologies[i] + components.field.optionClose;
+        }
+
+        newField += components.field.typeTechnologyPreClose;
+        newField += options;
+        newField += components.field.typeTechnologyClose;
         newField += components.field.containerClose;
 
         return newField;
