@@ -51,9 +51,13 @@ const components = {
         typeSelectOpen: '<select',
         typeSelectPreClose: '>',
         typeSelectClose: '</select>',
-        optionOpen: '<option value="',
-        optionPreClose: '">',
+        optionOpen: '<option',
+        optionValueOpen: ' value="',
+        optionValueClose: '"',
+        optionPreClose: '>',
         optionClose: '</option>',
+        styleOpen: ' style="',
+        styleClose: '"',
         placeholderOpen: ' placeholder="',
         placeholderClose: '"',
         required: ' required',
@@ -107,7 +111,7 @@ function buildField(field) {
 
         let options = '';
         for (let i = 0; i < field.input.colors.length; i++) {
-            options += components.field.optionOpen + field.input.colors[i] + components.field.optionPreClose + field.input.colors[i] + components.field.optionClose;
+            options += components.field.optionOpen + components.field.optionValueOpen + field.input.colors[i] + components.field.optionValueClose + components.field.styleOpen + 'background-color: ' + field.input.colors[i] + components.field.styleClose + components.field.optionPreClose + field.input.colors[i] + components.field.optionClose;
         }
 
         newField += components.field.typeSelectPreClose;
@@ -131,7 +135,7 @@ function buildField(field) {
 
         let options = '';
         for (let i = 0; i < field.input.technologies.length; i++) {
-            options += components.field.optionOpen + field.input.technologies[i] + components.field.optionPreClose + field.input.technologies[i] + components.field.optionClose;
+            options += components.field.optionOpen + components.field.optionValueOpen + field.input.technologies[i] + components.field.optionValueClose + components.field.optionPreClose + field.input.technologies[i] + components.field.optionClose;
         }
 
         newField += components.field.typeSelectPreClose;
@@ -208,21 +212,6 @@ function buildButton(field) {
     button += field.text;
     button += components.button.close;
     return button;
-}
-
-function setMask(value, pattern, mask) {
-    const strippedValue = x.replace(/[^0-9]/g, "");
-    const chars = strippedValue.split('');
-    let count = 0;
-
-    let formatted = '';
-
-    // for (let i = 0; i < pattern.length; i++) {
-    //     const c = pattern[i];
-    //     if (chars[count]) {
-    //         if (/\*/.test(c))
-    //     }
-    // }
 }
 
 // Функция создания формы
