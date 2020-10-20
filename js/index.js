@@ -1,10 +1,21 @@
-// осталось сделать МАСКИ и стили
+// осталось сделать стили, добавить try-catch
 
 // Форма
 const $send_wrapper = document.querySelector('.send-json__wrapper');
 
 // Контейнер для формы
 const $app = document.getElementById('app');
+
+// Вешаем обработчик на поля с маской
+$app.addEventListener('click', function(e) {
+    target = e.target;
+
+    if (target && target.getAttribute('masked') === '') {
+        target.addEventListener('input', setMask);
+        target.addEventListener('focus', setMask);
+        target.addEventListener('blur', setMask);
+    }
+});
 
 // Поле отправки JSON-файла
 const sendjson = document.getElementById('sendjson');
@@ -58,6 +69,9 @@ const components = {
         optionClose: '</option>',
         styleOpen: ' style="',
         styleClose: '"',
+        dataMaskOpen: ' data-mask="',
+        dataMaskClose: '"',
+        masked: ' masked',
         placeholderOpen: ' placeholder="',
         placeholderClose: '"',
         required: ' required',
@@ -95,7 +109,18 @@ function buildField(field) {
     }
 
     if (field.input.mask) {
-        
+        newField += components.field.open;
+        newField += components.field.dataMaskOpen + field.input.mask + components.field.dataMaskClose;
+        newField += components.field.masked;
+
+        if (field.input.required === true) {
+            newField += components.field.required;
+        }
+
+        newField += components.field.close;
+        newField += components.field.containerClose;
+
+        return newField;
     }
 
     if (field.input.type === 'color') {
@@ -263,4 +288,26 @@ function formClear(destination, destination2, sendfield) {
     destination.innerHTML = '';
     destination2.style.display = 'block';
     sendfield.value = '';
+}
+
+function setMask(event) {
+    let matrix = this.getAttribute('data-mask');
+    matrix = matrix.replace(/9/g, '_');
+    let i = 0;
+    let def = matrix.replace(/\D/g, "");
+    let val = this.value.replace(/\D/g, "");
+
+    if (def.length >= val.length) {
+        val = def;
+    }
+    
+    this.value = matrix.replace(/./g, function(a) {
+        return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
+    });
+
+    if (event.type == "blur") {
+        if (this.value.length === 2) {
+            this.value = "";
+        }
+    }
 }
