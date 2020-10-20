@@ -48,9 +48,9 @@ const components = {
         open: '<input class="form-control"',
         inputTypeOpen: ' type="',
         inputTypeClose: '"',
-        typeTechnologyOpen: '<select',
-        typeTechnologyPreClose: '>',
-        typeTechnologyClose: '</select>',
+        typeSelectOpen: '<select',
+        typeSelectPreClose: '>',
+        typeSelectClose: '</select>',
         optionOpen: '<option value="',
         optionPreClose: '">',
         optionClose: '</option>',
@@ -90,8 +90,36 @@ function buildField(field) {
         newField += components.field.labelOpen + field.label + components.field.labelClose;
     }
 
+    if (field.input.mask) {
+        
+    }
+
+    if (field.input.type === 'color') {
+        newField += components.field.typeSelectOpen;
+
+        if (field.input.required === true) {
+            newField += components.field.required;
+        }
+
+        if (field.input.multiple === true) {
+            newField += components.field.multiple;
+        }
+
+        let options = '';
+        for (let i = 0; i < field.input.colors.length; i++) {
+            options += components.field.optionOpen + field.input.colors[i] + components.field.optionPreClose + field.input.colors[i] + components.field.optionClose;
+        }
+
+        newField += components.field.typeSelectPreClose;
+        newField += options;
+        newField += components.field.typeSelectClose;
+        newField += components.field.containerClose;
+
+        return newField;
+    }
+
     if (field.input.type === 'technology') { 
-        newField += components.field.typeTechnologyOpen;
+        newField += components.field.typeSelectOpen;
 
         if (field.input.required === true) {
             newField += components.field.required;
@@ -106,9 +134,9 @@ function buildField(field) {
             options += components.field.optionOpen + field.input.technologies[i] + components.field.optionPreClose + field.input.technologies[i] + components.field.optionClose;
         }
 
-        newField += components.field.typeTechnologyPreClose;
+        newField += components.field.typeSelectPreClose;
         newField += options;
-        newField += components.field.typeTechnologyClose;
+        newField += components.field.typeSelectClose;
         newField += components.field.containerClose;
 
         return newField;
@@ -180,6 +208,21 @@ function buildButton(field) {
     button += field.text;
     button += components.button.close;
     return button;
+}
+
+function setMask(value, pattern, mask) {
+    const strippedValue = x.replace(/[^0-9]/g, "");
+    const chars = strippedValue.split('');
+    let count = 0;
+
+    let formatted = '';
+
+    // for (let i = 0; i < pattern.length; i++) {
+    //     const c = pattern[i];
+    //     if (chars[count]) {
+    //         if (/\*/.test(c))
+    //     }
+    // }
 }
 
 // Функция создания формы
