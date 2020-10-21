@@ -1,5 +1,3 @@
-// осталось сделать стили, добавить try-catch
-
 // Форма
 const $send_wrapper = document.querySelector('.send-json__wrapper');
 
@@ -21,7 +19,7 @@ $app.addEventListener('click', function(e) {
 const sendjson = document.getElementById('sendjson');
 
 // Кнопка очистки формы
-const $clear = document.getElementById('clear__button');
+const $clear = document.getElementById('clear-button');
 $clear.style.display = 'none';
 
 $clear.addEventListener('click', e => {
@@ -53,10 +51,10 @@ sendjson.addEventListener('change', function (e) {
 // Компоненты
 const components = {
     field: {
-        containerOpen: '<div class="form-group">',
-        labelOpen: '<label class="form-label">',
+        containerOpen: '<div class="form__group">',
+        labelOpen: '<label class="form__label">',
         labelClose: '</label>',
-        open: '<input class="form-control"',
+        open: '<input class="form__control"',
         inputTypeOpen: ' type="',
         inputTypeClose: '"',
         typeSelectOpen: '<select',
@@ -82,7 +80,7 @@ const components = {
         containerClose: '</div>'
     },
     reference: {
-        containerOpen: '<div class="form-group">',
+        containerOpen: '<div class="form__group">',
         checkboxOpen: '<input type="checkbox"',
         checkboxClose: '>',
         checked: ' checked',
@@ -189,10 +187,10 @@ function buildField(field) {
         let temp = '';
         for (let i = 0; i < field.input.filetype.length; i++) {
             if (i === field.input.filetype.length - 1) {
-                temp += field.input.filetype[i];
+                temp += '.' + field.input.filetype[i];
                 break;
             }
-            temp += field.input.filetype[i] + ', ';
+            temp += '.' + field.input.filetype[i] + ', ';
         }
         newField += components.field.filetypeOpen + temp + components.field.filetypeClose;
     }

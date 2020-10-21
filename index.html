@@ -11,11 +11,16 @@
     <h2>Загрузите json-файл, и он преобразуется в форму.</h2>
     <form method="post" enctype="multipart/form-data" id="sendjson__form">
         <div class="send-json__wrapper">
-            <label for="sendjson">Выберите JSON-файл для загрузки</label>
-            <input type="file" name="sendjson" id="sendjson" accept=".json">
+            <input type="file" name="sendjson" id="sendjson" accept=".json, .js">
+            <label for="sendjson" class="sendjson-button">
+                <span class="sendjson__icon-wrapper">
+                    <img src="./icons/upload.svg" alt="Выбрать файл" class="sendjson-icon" width="25">
+                </span>
+                <span class="sendjson-button-text">Выберите файл</span>
+            </label>
         </div>
     </form>
-    <button class="clear__button" type="button" id="clear__button">Очистить</button>
+    <button class="clear-button" type="button" id="clear-button">Очистить</button>
     <div id="app"></div>
     <script src="js/index.js"></script>
 </body>
