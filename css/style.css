@@ -3,7 +3,8 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 html {
@@ -65,9 +66,15 @@ h2 {
     width: 100%;
     max-width: 29rem;
     margin: 0 auto;
-    align-items: center;
-    justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
     height: 6rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 
     color: #ffffff;
@@ -86,9 +93,13 @@ h2 {
 }
 
 .sendjson__icon-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     text-align: center;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     height: 6rem;
     width: 6rem;
     margin-right: 1.5rem;
@@ -107,9 +118,15 @@ h2 {
     margin-bottom: 5rem;
     width: 29rem;
     height: 6rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     padding-top: 1rem;
     padding-bottom: 1rem;
 
@@ -150,8 +167,13 @@ h2 {
 }
 
 .form__group {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 .form__label {
@@ -181,6 +203,26 @@ h2 {
     color: #fff;
 }
 
+.form__control::-webkit-input-placeholder {
+    text-align: center;
+    font-family: 'Piazzolla', serif;
+}
+
+.form__control::-moz-placeholder {
+    text-align: center;
+    font-family: 'Piazzolla', serif;
+}
+
+.form__control:-ms-input-placeholder {
+    text-align: center;
+    font-family: 'Piazzolla', serif;
+}
+
+.form__control::-ms-input-placeholder {
+    text-align: center;
+    font-family: 'Piazzolla', serif;
+}
+
 .form__control::placeholder {
     text-align: center;
     font-family: 'Piazzolla', serif;
@@ -188,9 +230,15 @@ h2 {
 
 .form__button {
     margin: 0 auto;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     width: 22rem;
     height: 5rem;
     padding-top: 1rem;
